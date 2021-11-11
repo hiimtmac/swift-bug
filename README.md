@@ -1,7 +1,9 @@
 # swift-bug
 
 No problem in Xcode (run)
-No promlem in cli (swift build && .build/debug/Run)
+
+No problem in cli (swift build && .build/debug/Run)
+
 Problem in linux
 
 1. Build container `docker build -t hiimtac/swift-bug .`
