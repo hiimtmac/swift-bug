@@ -15,7 +15,7 @@ final class One: Model {
 }
 
 final class Two: Model {
-    static let schema = "ones"
+    static let schema = "twos"
     
     @ID(custom: .id) var id: Int?
     @Field(key: "test") var test: String
