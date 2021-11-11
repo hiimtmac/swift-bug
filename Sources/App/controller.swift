@@ -15,7 +15,7 @@ final class Controller: RouteCollection {
         var data = [String]()
         
         for three in threes {
-            guard let one = (try await ones).first(where: { $0.test == three.test }) else { continue }
+            guard let one = (try await ones).first(where: { $0.test == three.test }) else { req.logger.error("continuing...");continue }
             let two = (try await twos).filter { $0.test == three.test }.count
             
             data.append("\(one.test)-\(two)-\(three.test)")

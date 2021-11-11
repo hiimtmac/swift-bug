@@ -42,18 +42,14 @@ struct ThreeMigration: Migration {
 struct SeedMigration: Migration {
     func prepare(on database: Database) -> EventLoopFuture<Void> {
         let saves = [
-            One(test: "1").save(on: database),
-            One(test: "2").save(on: database),
-            One(test: "3").save(on: database),
-            One(test: "4").save(on: database),
             Two(test: "1").save(on: database),
             Two(test: "2").save(on: database),
             Two(test: "3").save(on: database),
             Two(test: "4").save(on: database),
-            Three(test: "1").save(on: database),
             Three(test: "2").save(on: database),
             Three(test: "3").save(on: database),
-            Three(test: "4").save(on: database)
+            Three(test: "4").save(on: database),
+            Three(test: "5").save(on: database)
         ]
 
         return saves.flatten(on: database.eventLoop)
