@@ -26,6 +26,19 @@ struct TwoMigration: Migration {
     }
 }
 
+struct ThreeMigration: Migration {
+    func prepare(on database: Database) -> EventLoopFuture<Void> {
+        database.schema("threes")
+            .field("id", .int, .identifier(auto: true))
+            .field("test", .string, .required)
+            .create()
+    }
+    
+    func revert(on database: Database) -> EventLoopFuture<Void> {
+        database.schema("threes").delete()
+    }
+}
+
 struct SeedMigration: Migration {
     func prepare(on database: Database) -> EventLoopFuture<Void> {
         let saves = [
@@ -36,7 +49,11 @@ struct SeedMigration: Migration {
             Two(test: "1").save(on: database),
             Two(test: "2").save(on: database),
             Two(test: "3").save(on: database),
-            Two(test: "4").save(on: database)
+            Two(test: "4").save(on: database),
+            Three(test: "1").save(on: database),
+            Three(test: "2").save(on: database),
+            Three(test: "3").save(on: database),
+            Three(test: "4").save(on: database)
         ]
 
         return saves.flatten(on: database.eventLoop)

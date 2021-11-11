@@ -7,16 +7,18 @@ final class Controller: RouteCollection {
     }
     
     func test(req: Request) async throws -> [String] {
+        let threes = try await Three.query(on: req.db).all()
+        
         async let ones = One.query(on: req.db).all()
         async let twos = Two.query(on: req.db).all()
         
         var data = [String]()
         
-        for id in ["1", "2", "3"] {
-            guard let one = (try await ones).first(where: { $0.test == id }) else { continue }
-            let two = (try await twos).filter { $0.test == id }.count
+        for three in threes {
+            guard let one = (try await ones).first(where: { $0.test == three.test }) else { continue }
+            let two = (try await twos).filter { $0.test == three.test }.count
             
-            data.append("\(one.test)-\(two)")
+            data.append("\(one.test)-\(two)-\(three.test)")
         }
         
         return data

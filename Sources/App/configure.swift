@@ -20,6 +20,7 @@ public func configure(_ app: Application) throws {
     
     app.migrations.add(OneMigration())
     app.migrations.add(TwoMigration())
+    app.migrations.add(ThreeMigration())
     app.migrations.add(SeedMigration())
     
     try app.autoMigrate().wait()
